@@ -42,6 +42,20 @@ class Peminjaman extends CI_Controller
 		if ($this->session->userdata('data_session') == NULL) {
 			redirect('Dashboard', 'refresh');
 		} else {
+			$ww = array('peminjam.status' => "Diambil");
+			$xx = $this->pm->getData('peminjam', $ww)->result();
+
+			foreach ($xx as $x) {
+				$exp = strtotime($x->tgl_pinjam);
+				$today = strtotime(date('Y-m-d'));
+
+				if ($today > $exp) {
+					$upd = array('status' => "Ditolak");
+					$where = array('id_peminjam' => $x->id_peminjam);
+					$this->pm->upd('peminjam', $upd, $where);
+				}
+			}
+
 			$w = array('peminjam.status' => "Diambil", 'barang.id_instansi' =>  $this->session->userdata['data_session']['level']);
 			$data['peminjam'] = $this->pm->getData('peminjam', $w)->result();
 
@@ -56,6 +70,7 @@ class Peminjaman extends CI_Controller
 		if ($this->session->userdata('data_session') == NULL) {
 			redirect('Dashboard', 'refresh');
 		} else {
+
 			$w = array('peminjam.status' => "Dipakai", 'barang.id_instansi' =>  $this->session->userdata['data_session']['level']);
 			$data['peminjam'] = $this->pm->getData('peminjam', $w)->result();
 
@@ -104,8 +119,8 @@ class Peminjaman extends CI_Controller
 	}
 	public function ins_pengajuan()
 	{
-		$kalimat = substr($this->input->post('hp'),1);
-		$hp = "62".$kalimat;
+		$kalimat = substr($this->input->post('hp'), 1);
+		$hp = "62" . $kalimat;
 		$ins = array(
 			'nip' => $this->input->post('nip'),
 			'nama_peminjam' => $this->input->post('nama'),
@@ -128,28 +143,33 @@ class Peminjaman extends CI_Controller
 	{
 		$w = array('id_peminjam' => $this->uri->segment(4));
 		$x = $this->pm->getData('peminjam', $w)->row();
+
 		if ($this->uri->segment(3) == "Diambil" || $this->uri->segment(3) == "Dipakai") {
 			$updd = array('status' => "Dipinjam");
 			$we = array('id_barang' => $x->id_barang);
 			$this->pm->upd('barang', $updd, $we);
-		}else{
+		} else {
 			$updd = array('status' => "Tersedia");
 			$we = array('id_barang' => $x->id_barang);
 			$this->pm->upd('barang', $updd, $we);
 		}
 		$upd = array('status' => $this->uri->segment(3));
 		$w = array('id_peminjam' => $this->uri->segment(4));
-		$data = $this->pm->getData('peminjam', $w)->row();
 		$this->pm->upd('peminjam', $upd, $w);
+
+		$data = $this->pm->getData('peminjam', $w)->row();
 
 		$this->session->set_flashdata('pesan', 'Pengajuan telah di Update!');
 		// $link = "<script>window.open('', '_blank')</script>";
 		if ($this->uri->segment(3) == "Ditolak") {
-			$link = '<script>window.open("https://web.whatsapp.com/send?phone='.$data->no_hp.'&text=Assalamaualaikum,Peminjaman barang yang anda ajukan diterima. Segera ambil barang di Diskominfotik","_blank")</script>';
-		}else{
-			$link = '<script>window.open("https://web.whatsapp.com/send?phone='.$data->no_hp.'&text=Assalamaualaikum,Peminjaman barang yang anda ajukan diterima. Segera ambil barang di Diskominfotik","_blank")</script>';
+			$link = '<script>window.open("https://web.whatsapp.com/send?phone=' . $data->no_hp . '&text=Assalamaualaikum,Peminjaman barang yang anda ajukan diterima. Segera ambil barang di Diskominfotik","_blank")</script>';
+		} else {
+			$link = '<script>window.open("https://web.whatsapp.com/send?phone=' . $data->no_hp . '&text=Assalamaualaikum,Peminjaman barang yang anda ajukan diterima. Segera ambil barang di Diskominfotik","_blank")</script>';
 		}
-		echo $link;
+
+		if ($this->uri->segment(3) == "Diambil") {
+			echo $link;
+		}
 		// header("location:https://web.whatsapp.com/send?phone='.$data->no_hp.'&text=Assalamaualaikum,Peminjaman barang yang anda ajukan diterima. Segera ambil barang di Diskominfotik");
 		redirect('Peminjaman/pengajuan', 'refresh');
 	}

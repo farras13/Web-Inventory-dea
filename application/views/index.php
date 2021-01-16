@@ -19,7 +19,9 @@
 							<div class="card-body">
 								<h5 class="card-title"><?php echo $br->nama_barang ?></h5>
 								<p class="card-text"><?php echo $br->status ?></p>
-								<a href="<?= base_url('Peminjaman/index/') . $br->id_barang ?>" class="btn btn-primary">Go somewhere</a>
+								<?php if($br->status != "Dipinjam"): ?>
+									<a href="<?= base_url('Peminjaman/index/') . $br->id_barang ?>" class="btn btn-primary">Go somewhere</a>
+								<?php endif ?>
 							</div>
 						</div>
 					</tr>
@@ -30,7 +32,9 @@
 							<div class="card-body">
 								<h5 class="card-title"><?php echo $br->nama_barang ?></h5>
 								<p class="card-text"><?php echo $br->status ?></p>
-								<a href="<?= base_url('Peminjaman/index/') . $br->id_barang ?>" class="btn btn-primary">Go somewhere</a>
+								<?php if($br->status != "Dipinjam"): ?>
+									<a href="<?= base_url('Peminjaman/index/') . $br->id_barang ?>" class="btn btn-primary">Go somewhere</a>
+								<?php endif ?>
 							</div>
 						</div>
 					</tr>
