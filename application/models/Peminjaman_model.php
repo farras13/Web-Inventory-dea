@@ -6,7 +6,7 @@ class Peminjaman_model extends CI_Model {
 
 	public function getData($t, $w)
 	{
-		$this->db->select($t.'.*, barang.id_barang, barang.nama_barang');		
+		$this->db->select($t.'.*, barang.id_barang, barang.nama_barang, barang.id_instansi');		
 		$this->db->where($w);
 		$this->db->join('barang', 'barang.id_barang = ' . $t . '.id_barang', 'left');
 		return $this->db->get($t);

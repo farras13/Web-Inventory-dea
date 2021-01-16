@@ -84,6 +84,15 @@
 									<h4>Dashboard</h4>
 								</a>
 							</li>
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="<?= base_url() ?>index.php/Barang"><i class="glyphicon glyphicon-list"></i>Instansi
+									<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<?php foreach ($ins as $k) : ?>
+										<li><a href="<?= base_url('Dashboard/index/'. $k->id_instansi . '/ins') ?>">Data <?= $k->nama_instansi ?> </a></li>
+									<?php endforeach ?>
+								</ul>
+							</li>
 							<?php
 							if ($this->uri->segment(1) == "Dashboard") {
 							?>
@@ -91,7 +100,7 @@
 									<h3>Kategori</h3>
 								</center>
 								<?php foreach ($kat as $k) : ?>
-									<li><a href="<?= base_url('Dashboard/index/') . $k->idKategori ?>" class=""><i class="glyphicon glyphicon-transfer"></i>
+									<li><a href="<?= base_url('Dashboard/index/') . $k->idKategori . '/kat'?>" class=""><i class="glyphicon glyphicon-transfer"></i>
 											<span><?= $k->kategori ?></span></a>
 									</li>
 								<?php endforeach ?>

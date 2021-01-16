@@ -28,7 +28,7 @@ class Peminjaman extends CI_Controller
 		if ($this->session->userdata('data_session') == NULL) {
 			redirect('Dashboard', 'refresh');
 		} else {
-			$w = array('peminjam.status' => "mengajukan");
+			$w = array('peminjam.status' => "mengajukan", 'barang.id_instansi' =>  $this->session->userdata['data_session']['level']);
 			$data['peminjam'] = $this->pm->getData('peminjam', $w)->result();
 
 			$this->load->view('template/header');
@@ -42,7 +42,7 @@ class Peminjaman extends CI_Controller
 		if ($this->session->userdata('data_session') == NULL) {
 			redirect('Dashboard', 'refresh');
 		} else {
-			$w = array('peminjam.status' => "Diambil");
+			$w = array('peminjam.status' => "Diambil", 'barang.id_instansi' =>  $this->session->userdata['data_session']['level']);
 			$data['peminjam'] = $this->pm->getData('peminjam', $w)->result();
 
 			$this->load->view('template/header');
@@ -56,7 +56,7 @@ class Peminjaman extends CI_Controller
 		if ($this->session->userdata('data_session') == NULL) {
 			redirect('Dashboard', 'refresh');
 		} else {
-			$w = array('peminjam.status' => "Dipakai");
+			$w = array('peminjam.status' => "Dipakai", 'barang.id_instansi' =>  $this->session->userdata['data_session']['level']);
 			$data['peminjam'] = $this->pm->getData('peminjam', $w)->result();
 
 			$this->load->view('template/header');
@@ -70,7 +70,7 @@ class Peminjaman extends CI_Controller
 		if ($this->session->userdata('data_session') == NULL) {
 			redirect('Dashboard', 'refresh');
 		} else {
-			$w = array('peminjam.status' => "Dikembalikan");
+			$w = array('peminjam.status' => "Dikembalikan", 'barang.id_instansi' =>  $this->session->userdata['data_session']['level']);
 			$data['peminjam'] = $this->pm->getData('peminjam', $w)->result();
 
 			$this->load->view('template/header');
@@ -84,7 +84,7 @@ class Peminjaman extends CI_Controller
 		if ($this->session->userdata('data_session') == NULL) {
 			redirect('Dashboard', 'refresh');
 		} else {
-			$w = array('peminjam.status' => "Ditolak");
+			$w = array('peminjam.status' => "Ditolak", 'barang.id_instansi' =>  $this->session->userdata['data_session']['level']);
 			$data['peminjam'] = $this->pm->getData('peminjam', $w)->result();
 
 			$this->load->view('template/header');
@@ -104,10 +104,12 @@ class Peminjaman extends CI_Controller
 	}
 	public function ins_pengajuan()
 	{
+		$kalimat = substr($this->input->post('hp'),1);
+		$hp = "62".$kalimat;
 		$ins = array(
 			'nip' => $this->input->post('nip'),
 			'nama_peminjam' => $this->input->post('nama'),
-			'no_hp' => $this->input->post('hp'),
+			'no_hp' => $hp,
 			'tgl_pinjam' => $this->input->post('pinjam'),
 			'tgl_kembali' => $this->input->post('bali'),
 			'tgl_pengajuan' => date('Y-m-d'),
@@ -124,6 +126,17 @@ class Peminjaman extends CI_Controller
 	}
 	public function status_upd()
 	{
+		$w = array('id_peminjam' => $this->uri->segment(4));
+		$x = $this->pm->getData('peminjam', $w)->row();
+		if ($this->uri->segment(3) == "Diambil" || $this->uri->segment(3) == "Dipakai") {
+			$updd = array('status' => "Dipinjam");
+			$we = array('id_barang' => $x->id_barang);
+			$this->pm->upd('barang', $updd, $we);
+		}else{
+			$updd = array('status' => "Tersedia");
+			$we = array('id_barang' => $x->id_barang);
+			$this->pm->upd('barang', $updd, $we);
+		}
 		$upd = array('status' => $this->uri->segment(3));
 		$w = array('id_peminjam' => $this->uri->segment(4));
 		$data = $this->pm->getData('peminjam', $w)->row();

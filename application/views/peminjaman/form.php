@@ -8,6 +8,9 @@
 			</div>
 			<form action="<?= base_url('Peminjaman/ins_pengajuan'); ?>" class="form-group" method="POST">
 				<div class="form-row">
+					<div hidden>
+						<input type="text" id="idbrg" name="idbrg" class="form-control" value="<?= $barang->id_barang; ?>" readonly>
+					</div>
 					<div class="col-md-6 mb-3" style="margin-bottom: 15px;">
 						<label for="nip">NIP</label>
 						<input type="text" id="nip" name="nip" class="form-control" placeholder="NIP" required>
@@ -23,7 +26,7 @@
 					<div class="col-md-12 mb-3" style="margin-bottom: 15px;">
 						<label for="brg">Barang yang dipinjam</label>
 						<input type="text" id="brg" name="brg" class="form-control" value="<?= $barang->nama_barang; ?>" readonly>
-						<input type="hidden" id="idbrg" name="idbrg" class="form-control" value="<?= $barang->id_barang; ?>" >
+						
 					</div>
 					<div class="col-md-6 mb-3" style="margin-bottom: 15px;">
 						<label for="tgl1">Tanggal Diambil</label>

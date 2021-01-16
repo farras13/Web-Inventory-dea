@@ -22,7 +22,8 @@ class Barang extends CI_Controller {
 		if ($cari != null) {
 			$data['data_barang'] = $this->bm->search($cari)->result();
 		}else{
-			$data['data_barang'] = $this->bm->getBarang('barang')->result();
+			$w = array ('barang.id_instansi' => $this->session->userdata['data_session']['level']);
+			$data['data_barang'] = $this->bm->getDataId('barang', $w)->result();
 		}
 		$data['k'] = $this->bm->getData('kategori')->result();
 		$data['in'] = $this->bm->getData('instansi')->result();
@@ -33,7 +34,7 @@ class Barang extends CI_Controller {
 
 	public function Barang_ts()
 	{
-		$w = array ('status' => 'Tersedia');
+		$w = array ('status' => 'Tersedia', 'barang.id_instansi' => $this->session->userdata['data_session']['level']);
 		$data['data_barang'] = $this->bm->getDataId('barang', $w)->result();
 		$data['k'] = $this->bm->getData('kategori')->result();
 		$data['in'] = $this->bm->getData('instansi')->result();
@@ -44,7 +45,7 @@ class Barang extends CI_Controller {
 
 	public function Barang_dp()
 	{
-		$w = array ('status' => 'Dipinjam');
+		$w = array ('status' => 'Dipinjam', 'barang.id_instansi' => $this->session->userdata['data_session']['level']);
 		$data['data_barang'] = $this->bm->getDataId('barang', $w)->result();
 		$data['k'] = $this->bm->getData('kategori')->result();
 		$data['in'] = $this->bm->getData('instansi')->result();

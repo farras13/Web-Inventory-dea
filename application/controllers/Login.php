@@ -40,7 +40,7 @@ class Login extends CI_Controller
 					'username' => $cek->username,
 					'password' => $cek->password,
 					'login' => TRUE,
-					'level' => $cek->nama_instansi,
+					'level' => $cek->id_instansi,
 				);
 				$this->session->set_userdata('data_session', $array);
 
