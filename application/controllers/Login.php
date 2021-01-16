@@ -10,6 +10,7 @@ class Login extends CI_Controller
 		parent::__construct();
 		//Do your magic here
 		$this->load->model('login_model', 'lm');
+		date_default_timezone_set('Asia/Jakarta');
 	}
 
 
@@ -43,7 +44,7 @@ class Login extends CI_Controller
 				);
 				$this->session->set_userdata('data_session', $array);
 
-				redirect('Dashboard', 'refresh');
+				redirect('Barang', 'refresh');
 			} else {
 				redirect('Login', 'refresh');
 			}

@@ -34,8 +34,12 @@
 
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
+					<?php
+					if ($this->session->userdata('data_session') != NULL) {
+					?>
 						<li><a href="<?= base_url() ?>Login/logout"><span style="color: white">Logout</span></a></li>
 						</li>
+						<?php } ?>
 					</ul>
 				</div>
 			</div>
@@ -45,38 +49,45 @@
 		<div id="sidebar-nav" class="sidebar">
 			<div class="sidebar-scroll">
 				<nav class="sidebar-menu">
-					<ul class="nav">
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="<?= base_url() ?>index.php/Barang"><i class="glyphicon glyphicon-folder-open"></i>Data Peminjaman
-								<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="<?= base_url() ?>Peminjaman">Data Pengajuan </a></li>
-								<li><a href="<?= base_url() ?>Barang/Barang_ts">Data Barang Diambil</a></li>
-								<li><a href="<?= base_url() ?>Barang/Barang_dp">Data Barang On Process</a></li>
-								<li><a href="<?= base_url() ?>Barang/Barang_dp">Data Barang Dikembalikan</a></li>
-								<li><a href="<?= base_url() ?>Barang/Barang_dp">Data Barang Ditolak</a></li>
-							</ul>
-						</li>
-					</ul>
+					<?php
+					if ($this->session->userdata('data_session') != NULL) {
+					?>
+						<ul class="nav">
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="<?= base_url() ?>index.php/Barang"><i class="glyphicon glyphicon-folder-open"></i>Data Peminjaman
+									<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="<?= base_url() ?>Peminjaman/pengajuan">Data Pengajuan </a></li>
+									<li><a href="<?= base_url() ?>Peminjaman/diambil">Data Barang Diambil</a></li>
+									<li><a href="<?= base_url() ?>Peminjaman/onproses">Data Barang On Process</a></li>
+									<li><a href="<?= base_url() ?>Peminjaman/dikembalikan">Data Barang Dikembalikan</a></li>
+									<li><a href="<?= base_url() ?>Peminjaman/ditolak">Data Barang Ditolak</a></li>
+								</ul>
+							</li>
+						</ul>
 
-					<ul class="nav">
-						<li class="dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" href="<?= base_url() ?>index.php/Barang"><i class="glyphicon glyphicon-list"></i>Barang
-								<span class="caret"></span></a>
-							<ul class="dropdown-menu">
-								<li><a href="<?= base_url() ?>index.php/Barang">Data Barang </a></li>
-								<li><a href="<?= base_url() ?>index.php/Barang_ts">Data Barang Tersedia</a></li>
-								<li><a href="<?= base_url() ?>index.php/Barang_dp">Data Barang Dipinjam</a></li>
-							</ul>
-						</li>
-					</ul>
-
-					<ul class="nav">
-						<li><a href="<?= base_url() ?>index.php/Peminjaman" class=""><i class="glyphicon glyphicon-transfer"></i>
-								<span>Peminjaman</span></a>
-						</li>
-					</ul>
-
+						<ul class="nav">
+							<li class="dropdown">
+								<a class="dropdown-toggle" data-toggle="dropdown" href="<?= base_url() ?>index.php/Barang"><i class="glyphicon glyphicon-list"></i>Barang
+									<span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="<?= base_url() ?>Barang">Data Barang </a></li>
+									<li><a href="<?= base_url() ?>Barang/Barang_ts">Data Barang Tersedia</a></li>
+									<li><a href="<?= base_url() ?>Barang/Barang_dp">Data Barang Dipinjam</a></li>
+								</ul>
+							</li>
+						</ul>
+					<?php
+					} else {
+					?>
+						<ul class="nav">
+							<li><a href="<?= base_url() ?>index.php/Peminjaman" class=""><i class="glyphicon glyphicon-transfer"></i>
+									<span>Peminjaman</span></a>
+							</li>
+						</ul>
+					<?php
+					}
+					?>
 				</nav>
 			</div>
 		</div>

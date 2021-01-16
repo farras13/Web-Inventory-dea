@@ -10,6 +10,7 @@ class Dashboard extends CI_Controller
 		parent::__construct();
 		//Do your magic here
 		$this->load->model('Barang_model', 'bm');
+		date_default_timezone_set('Asia/Jakarta');
 	}
 
 	public function index()
@@ -17,8 +18,7 @@ class Dashboard extends CI_Controller
 		$data['data_barang'] = $this->bm->getData('barang')->result();
 		$this->load->view('template/header');
 		$this->load->view('index', $data);
-		$this->load->view('template/footer');
-		
+		$this->load->view('template/footer');		
 	}
 }
 
