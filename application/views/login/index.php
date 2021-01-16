@@ -53,7 +53,7 @@
 							<p></p>
 						</div>
 					</div>
-					<div class="clearfix"></div>
+					<div class="clearfix"><center><a href="<?= base_url('Dashboard') ?>"><i style="margin-top: 10px;" class="fa fa-undo"></i><p style="font-size: large;">Go Back</p></a></center></div>
 				</div>
 			</div>
 		</div>

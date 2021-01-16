@@ -34,11 +34,10 @@
 
 				<div id="navbar-menu">
 					<ul class="nav navbar-nav navbar-right">
-					<?php
-					if ($this->session->userdata('data_session') != NULL) {
-					?>
-						<li><a href="<?= base_url() ?>Login/logout"><span style="color: white">Logout</span></a></li>
-						</li>
+						<?php if ($this->session->userdata('data_session') != NULL) { ?>
+							<li><a href="<?= base_url() ?>Login/logout"><span style="color: white">Logout</span></a></li>
+						<?php } else { ?>
+							<li><a href="<?= base_url() ?>Login"><span style="color: white">Login</span></a></li>
 						<?php } ?>
 					</ul>
 				</div>
@@ -81,13 +80,24 @@
 					} else {
 					?>
 						<ul class="nav">
-							<li><a href="<?= base_url() ?>index.php/Peminjaman" class=""><i class="glyphicon glyphicon-transfer"></i>
-									<span>Peminjaman</span></a>
+							<li><a href="<?= base_url('Dashboard') ?>" class="">
+									<h4>Dashboard</h4>
+								</a>
 							</li>
+							<?php
+							if ($this->uri->segment(1) == "Dashboard") {
+							?>
+								<center>
+									<h3>Kategori</h3>
+								</center>
+								<?php foreach ($kat as $k) : ?>
+									<li><a href="<?= base_url('Dashboard/index/') . $k->idKategori ?>" class=""><i class="glyphicon glyphicon-transfer"></i>
+											<span><?= $k->kategori ?></span></a>
+									</li>
+								<?php endforeach ?>
+							<?php } ?>
 						</ul>
-					<?php
-					}
-					?>
+					<?php }	?>
 				</nav>
 			</div>
 		</div>

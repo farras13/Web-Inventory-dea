@@ -10,6 +10,9 @@ class Barang extends CI_Controller {
 		//Do your magic here
 		$this->load->model('Barang_model', 'bm');
 		date_default_timezone_set('Asia/Jakarta');
+		if ($this->session->userdata('data_session') == NULL) {
+			redirect('Dashboard','refresh');
+		}
 	}
 
 	public function index()

@@ -15,10 +15,16 @@ class Dashboard extends CI_Controller
 
 	public function index()
 	{
-		$data['data_barang'] = $this->bm->getData('barang')->result();
-		$this->load->view('template/header');
+		if ($this->uri->segment(3) == NULL) {
+			$data['data_barang'] = $this->bm->getData('barang')->result();
+		} else {
+			$w = array('barang.idKategori' => $this->uri->segment(3));
+			$data['data_barang'] = $this->bm->getDataId('barang', $w)->result();
+		}
+		$data['kat'] = $this->bm->getData('kategori')->result();
+		$this->load->view('template/header', $data);
 		$this->load->view('index', $data);
-		$this->load->view('template/footer');		
+		$this->load->view('template/footer');
 	}
 }
 
