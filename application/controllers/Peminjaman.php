@@ -161,13 +161,13 @@ class Peminjaman extends CI_Controller
 
 		$this->session->set_flashdata('pesan', 'Pengajuan telah di Update!');
 		// $link = "<script>window.open('', '_blank')</script>";
-		if ($this->uri->segment(3) == "Ditolak") {
+		if ( $this->uri->segment(3) == "Diambil") {
 			$link = '<script>window.open("https://web.whatsapp.com/send?phone=' . $data->no_hp . '&text=Assalamaualaikum,Peminjaman barang yang anda ajukan diterima. Segera ambil barang di Diskominfotik","_blank")</script>';
-		} else {
-			$link = '<script>window.open("https://web.whatsapp.com/send?phone=' . $data->no_hp . '&text=Assalamaualaikum,Peminjaman barang yang anda ajukan diterima. Segera ambil barang di Diskominfotik","_blank")</script>';
+		} elseif($this->uri->segment(3) == "Ditolak1") {
+			$link = '<script>window.open("https://web.whatsapp.com/send?phone=' . $data->no_hp . '&text=Assalamaualaikum,Peminjaman barang yang anda ajukan ditolak.Mohon bersabar ini ujian","_blank")</script>';
 		}
 
-		if ($this->uri->segment(3) == "Diambil") {
+		if ($this->uri->segment(3) == "Diambil" || $this->uri->segment(3) == "Ditolak1") {
 			echo $link;
 		}
 		// header("location:https://web.whatsapp.com/send?phone='.$data->no_hp.'&text=Assalamaualaikum,Peminjaman barang yang anda ajukan diterima. Segera ambil barang di Diskominfotik");
