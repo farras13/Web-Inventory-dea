@@ -60,15 +60,16 @@
 									<td><?= $dt->keperluan ?></td>
 									<td><?= $dt->nama_barang ?></td>
 									<td><?= $dt->status ?></td>
-									<td>
-
-										<a href="<?= base_url('Peminjaman/status_upd/') . $sts . '/' . $dt->id_peminjam ?>" class="btn btn-success"> Diterima </a>
-										<?php if ($this->uri->segment(2) == "pengajuan") : ?>
-											<a href="<?= base_url('Peminjaman/status_upd/Ditolak1/') . $dt->id_peminjam ?>" class="btn btn-danger"> Ditolak </a>
-										<?php else : ?>
-											<a href="<?= base_url('Peminjaman/status_upd/Ditolak/') . $dt->id_peminjam ?>" class="btn btn-danger"> Ditolak </a>
-										<?php endif ?>
-									</td>
+									<?php if ($dt->status != "Ditolak") { ?>
+										<td>
+											<a href="<?= base_url('Peminjaman/status_upd/') . $sts . '/' . $dt->id_peminjam ?>" class="btn btn-success"> Diterima </a>
+											<?php if ($this->uri->segment(2) == "pengajuan") : ?>
+												<a href="<?= base_url('Peminjaman/status_upd/Ditolak1/') . $dt->id_peminjam ?>" class="btn btn-danger"> Ditolak </a>
+											<?php else : ?>
+												<a href="<?= base_url('Peminjaman/status_upd/Ditolak/') . $dt->id_peminjam ?>" class="btn btn-danger"> Ditolak </a>
+											<?php endif ?>
+										</td>
+									<?php } ?>
 								</tr>
 							<?php }	?>
 						</tbody>

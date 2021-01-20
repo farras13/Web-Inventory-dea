@@ -153,7 +153,12 @@ class Peminjaman extends CI_Controller
 			$we = array('id_barang' => $x->id_barang);
 			$this->pm->upd('barang', $updd, $we);
 		}
-		$upd = array('status' => $this->uri->segment(3));
+		if ($this->uri->segment(3) == "Ditolak1") {
+			$sts = "Ditolak";
+		}else{
+			$sts = $this->uri->segment(3);
+		}
+		$upd = array('status' => $sts);
 		$w = array('id_peminjam' => $this->uri->segment(4));
 		$this->pm->upd('peminjam', $upd, $w);
 
